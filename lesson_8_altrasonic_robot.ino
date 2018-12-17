@@ -1,6 +1,6 @@
 #include <Ultrasonic.h>
 
-Ultrasonic ultrasonic(4, 5); // 4 tric 5 echo
+Ultrasonic ultrasonic(12, 13); // 12 tric 13 echo
 
 int Motor_R1 = 6;
 int Motor_R2 = 5;
@@ -23,15 +23,12 @@ void setup() {
 
 void loop() {
   distance = ultrasonic.read();
-  int r = digitalRead (ssR);
-  int l = digitalRead (ssL);
-  int swR = digitalRead (swr);
-  int swL = digitalRead (swl);
   Serial.println(distance);
-  if (distance <= 7)
+  if (distance <= 15)
   {
+    stopp();
     delay(1000);
-    if (distance <= 7 )
+    if (distance <= 15 )
     {
       Move_r();
       delay(500);
@@ -62,4 +59,14 @@ void Move_f()
   digitalWrite (Motor_L1, 1);
   digitalWrite (Motor_L2, 0);
   analogWrite  (pwml, 250);
+}
+void stopp()
+{
+  digitalWrite (Motor_R1, 0);
+  digitalWrite (Motor_R2, 0);
+
+  digitalWrite (Motor_L1, 0);
+  digitalWrite (Motor_L2, 0);
+
+
 }
